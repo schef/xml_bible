@@ -54,7 +54,11 @@ public class ChapterAdapter extends ArrayAdapter<Chapter> {
 
         Chapter weather = data.get(position);
         holder.txtNum.setText(weather.toString());
-        holder.txtVerse.setText(weather.getVerses().get(0).toString());
+        String str = weather.getVerses().get(0).toString();
+        if(str.length() > 40) {
+            str = str.substring(0, 40);
+        }
+        holder.txtVerse.setText(":1 - " + str + "...");
 
         return row;
     }
