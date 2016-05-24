@@ -55,13 +55,13 @@ public class XMLPullParserHandler {
                             bookString = parser.getAttributeValue(0);
                             //employee = new Employee();
                             book = new Book();
-                            book.setBook(bookString);
+                            book.init(bookString);
                             //System.out.println("start bk: " + book);
                         } else if (tagname.equalsIgnoreCase("chapter")) {
                             //employee.setChapter();
                             chapterInt = Integer.parseInt(parser.getAttributeValue(0));
                             chapter = book.addChapter();
-                            chapter.setChapter(chapterInt);
+                            chapter.init(chapterInt);
 
                             //System.out.println("start ch: " + chapter);
                         } else if (tagname.equalsIgnoreCase("verse")) {
@@ -91,7 +91,7 @@ public class XMLPullParserHandler {
                             //System.out.println(text);
                             //employee.addVerse(Integer.parseInt(verse), text);
                             //System.out.println("end ve: " + verse);
-                            verse.setVerse(verseInt, text);
+                            verse.init(verseInt, text);
                         }
                         break;
 

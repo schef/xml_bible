@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
+import io.github.schef.xmlbible.Book.Bible;
 import io.github.schef.xmlbible.Book.Book;
 
 /**
@@ -22,7 +23,6 @@ import io.github.schef.xmlbible.Book.Book;
 public class XMLPullParserActivity extends Activity {
 
     ListView listView;
-    List<Book> employees = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +32,13 @@ public class XMLPullParserActivity extends Activity {
         listView = (ListView) findViewById(R.id.list);
 
         try {
+
             XMLPullParserHandler parser = new XMLPullParserHandler();
-            employees = parser.parse(getAssets().open("employees.xml"));
-            ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this,R.layout.list_item, employees);
+            Bible.getInstance().init("KJV");
+            Bible.getInstance().setBooks(parser.parse(getAssets().open("employees.xml")));
+            ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this,R.layout.list_item, Bible.getInstance().getBooks());
             listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(XMLPullParserActivity.this, BookActivity.class);
-                    intent.putExtra("book", (Parcelable)employees.get(position));
-                    startActivity(intent);
-                }
-            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }

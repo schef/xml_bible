@@ -13,7 +13,7 @@ public class Book{
     String name;
     List<Chapter> chapters;
 
-    public void setBook(String name){
+    public void init(String name){
         this.name = name;
         this.chapters = new ArrayList<Chapter>();
         System.out.println("book added");
@@ -25,9 +25,17 @@ public class Book{
         return chapter;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
     @Override
     public String toString() {
         //return super.toString();
-        return name;
+        return this.name;
     }
 }

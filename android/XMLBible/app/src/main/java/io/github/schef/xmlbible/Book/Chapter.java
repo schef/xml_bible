@@ -11,7 +11,7 @@ public class Chapter {
     Integer num;
     List<Verse> verses;
 
-    public void setChapter(Integer num){
+    public void init(Integer num){
         this.num = num;
         this.verses = new ArrayList<Verse>();
         System.out.println("chapter added");
@@ -23,4 +23,13 @@ public class Chapter {
         return verse;
     }
 
+    public List<Verse> getVerses() {
+        return verses;
+    }
+
+    @Override
+    public String toString() {
+        //return super.toString();
+        return String.valueOf(num);
+    }
 }
