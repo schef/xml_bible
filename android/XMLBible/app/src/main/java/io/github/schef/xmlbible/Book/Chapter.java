@@ -14,7 +14,7 @@ public class Chapter {
     public void init(Integer num){
         this.num = num;
         this.verses = new ArrayList<Verse>();
-        System.out.println("chapter added");
+        //System.out.println("chapter added");
     }
 
     public Verse addVerse(){

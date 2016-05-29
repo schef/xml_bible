@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.schef.xmlbible.Book.Bible;
 import io.github.schef.xmlbible.Book.Book;
 import io.github.schef.xmlbible.Book.Chapter;
 import io.github.schef.xmlbible.Book.Verse;
@@ -17,7 +18,7 @@ import io.github.schef.xmlbible.Book.Verse;
  * Created by schef on 5/23/16.
  */
 public class XMLPullParserHandler {
-    List<Book> books;
+    private String bibleString;
     private String bookString;
     private Integer chapterInt;
     private Integer verseInt;
@@ -25,16 +26,17 @@ public class XMLPullParserHandler {
     private Chapter chapter;
     private Verse verse;
     private Book book;
+    Bible bible;
 
     public XMLPullParserHandler() {
-        books = new ArrayList<Book>();
+        bible.init("dummy", new ArrayList<Book>());
     }
 
     //public List<Book> getEmployees() {
     //    return employees;
     //}
 
-    public List<Book> parse(InputStream is) {
+    public Bible parse(InputStream is) {
         XmlPullParserFactory factory = null;
         XmlPullParser parser = null;
         try {
@@ -50,7 +52,14 @@ public class XMLPullParserHandler {
 
                 switch (eventType) {
                     case XmlPullParser.START_TAG:
-                        if (tagname.equalsIgnoreCase("book")) {
+                        if (tagname.equalsIgnoreCase("bible")) {
+                            bibleString = parser.getAttributeValue(0);
+                            //employee = new Employee();
+                            bible.setName(bibleString);
+
+
+                        }
+                        else if (tagname.equalsIgnoreCase("book")) {
                             //employee.setBook(parser.getAttributeValue(0));
                             bookString = parser.getAttributeValue(0);
                             //employee = new Employee();
@@ -81,16 +90,13 @@ public class XMLPullParserHandler {
                     case XmlPullParser.END_TAG:
                         if (tagname.equalsIgnoreCase("book")) {
                             // add employee object to list
-                            books.add(book);
+                            bible.addBook(book);
                             //System.out.println("end bk: " + book);
                         }
                         else if (tagname.equalsIgnoreCase("chapter")) {
                             //System.out.println("end ch: " + chapter);
                         }
                         else if (tagname.equalsIgnoreCase("verse")) {
-                            //System.out.println(text);
-                            //employee.addVerse(Integer.parseInt(verse), text);
-                            //System.out.println("end ve: " + verse);
                             verse.init(verseInt, text);
                         }
                         break;
@@ -107,6 +113,6 @@ public class XMLPullParserHandler {
             e.printStackTrace();
         }
 
-        return books;
+        return bible;
     }
 }

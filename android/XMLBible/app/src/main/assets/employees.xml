@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bible name="King James Bible" abbrev="KJV">
+<bible name="King James Emp" abbrev="KJV">
     <book num="Gen">
         <chapter num="1">
             <verse num="1">In the beginning God created the heaven and the earth.</verse>

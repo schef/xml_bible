@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible;
+package io.github.schef.xmlbible.ShowBibles;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,25 +6,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import io.github.schef.xmlbible.Book.Bible;
 import io.github.schef.xmlbible.Book.Book;
 import io.github.schef.xmlbible.Book.Chapter;
+import io.github.schef.xmlbible.Book.Library;
+import io.github.schef.xmlbible.R;
 
 /**
  * Created by schef on 5/24/16.
  */
 
-public class ChapterAdapter extends ArrayAdapter<Chapter> {
+public class BibleAdapter extends ArrayAdapter<Book> {
 
     Context context;
     int layoutResourceId;
-    List<Chapter> data = null;
+    List<Book> data = null;
 
-    public ChapterAdapter(Context context, int layoutResourceId, List<Chapter> data) {
+    public BibleAdapter(Context context, int layoutResourceId, List<Book> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -42,8 +44,7 @@ public class ChapterAdapter extends ArrayAdapter<Chapter> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new WeatherHolder();
-            holder.txtNum = (TextView)row.findViewById(R.id.txtNum);
-            holder.txtVerse = (TextView)row.findViewById(R.id.txtVerse);
+            holder.txtBible = (TextView)row.findViewById(R.id.txtBible);
 
             row.setTag(holder);
         }
@@ -52,20 +53,18 @@ public class ChapterAdapter extends ArrayAdapter<Chapter> {
             holder = (WeatherHolder)row.getTag();
         }
 
-        Chapter weather = data.get(position);
-        holder.txtNum.setText(weather.toString());
-        String str = weather.getVerses().get(0).toString();
+        Book weather = data.get(position);
+        String str = weather.getName();
         if(str.length() > 40) {
             str = str.substring(0, 40);
         }
-        holder.txtVerse.setText(":1 - " + str + "...");
+        holder.txtBible.setText(str);
 
         return row;
     }
 
     static class WeatherHolder
     {
-        TextView txtVerse;
-        TextView txtNum;
+        TextView txtBible;
     }
 }

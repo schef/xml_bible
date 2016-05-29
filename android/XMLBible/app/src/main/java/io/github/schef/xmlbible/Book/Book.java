@@ -16,7 +16,7 @@ public class Book{
     public void init(String name){
         this.name = name;
         this.chapters = new ArrayList<Chapter>();
-        System.out.println("book added");
+        //System.out.println("book added");
     }
 
     public Chapter addChapter(){

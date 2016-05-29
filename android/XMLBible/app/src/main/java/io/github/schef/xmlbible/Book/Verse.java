@@ -11,7 +11,7 @@ public class Verse {
     public void init(Integer num, String verse){
         this.num = num;
         this.verse = verse;
-        System.out.println("verse added");
+        //System.out.println("verse added");
     }
 
     @Override

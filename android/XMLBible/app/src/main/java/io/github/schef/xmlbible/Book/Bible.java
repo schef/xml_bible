@@ -8,29 +8,17 @@ import java.util.List;
  */
 public class Bible {
 
-    //singleton instance start
-    private static Bible instance;
-
-    public static Bible getInstance() {
-        if (instance == null)
-            instance = new Bible();
-        return instance;
-    }
-
-    private Bible() {}
-    //singleton instance end
-
     String name;
     List<Book> books;
 
-    public void init(String name){
+    public void init(String name, ArrayList<Book> books){
         this.name = name;
-        this.books = new ArrayList<Book>();
-        System.out.println("bible added");
+        this.books = books;
+        //System.out.println("bible added");
     }
 
-    public Book addBook(){
-        Book book = new Book();
+    public Book addBook(Book book){
+        //Book book = new Book();
         books.add(book);
         return book;
     }
@@ -57,4 +45,7 @@ public class Bible {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

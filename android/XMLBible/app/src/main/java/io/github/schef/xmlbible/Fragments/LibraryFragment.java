@@ -1,6 +1,7 @@
 package io.github.schef.xmlbible.Fragments;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,25 +9,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import io.github.schef.xmlbible.Book.Bible;
+import io.github.schef.xmlbible.Book.Library;
 import io.github.schef.xmlbible.R;
-import io.github.schef.xmlbible.ChapterAdapter;
+import io.github.schef.xmlbible.ShowBibles.BibleAdapter;
 
 /**
  * Created by schef on 5/24/16.
  */
 
-public class ChaptersFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class LibraryFragment extends ListFragment implements AdapterView.OnItemClickListener {
     // Store instance variables
     private Integer pos;
     private String name;
 
 
-    public static ChaptersFragment newInstance(int position) {
+    public static LibraryFragment newInstance(int position) {
         
         Bundle args = new Bundle();
         args.putInt("position", position);
-        ChaptersFragment fragment = new ChaptersFragment();
+        LibraryFragment fragment = new LibraryFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +49,7 @@ public class ChaptersFragment extends ListFragment implements AdapterView.OnItem
         super.onActivityCreated(savedInstanceState);
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.Planets, android.R.layout.simple_list_item_1);
         //ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.list_item, Bible.getInstance().getBook(pos).getChapters());
-        ChapterAdapter adapter = new ChapterAdapter(getActivity(), R.layout.listview_item_row, Bible.getInstance().getBook(pos).getChapters());
+        BibleAdapter adapter = new BibleAdapter(getActivity(), R.layout.list_item, Library.getInstance().getBible(pos).getBooks());
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
