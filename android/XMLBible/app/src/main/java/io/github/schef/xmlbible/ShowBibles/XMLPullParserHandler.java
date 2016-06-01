@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible;
+package io.github.schef.xmlbible.ShowBibles;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -6,13 +6,11 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import io.github.schef.xmlbible.Book.Bible;
-import io.github.schef.xmlbible.Book.Book;
-import io.github.schef.xmlbible.Book.Chapter;
-import io.github.schef.xmlbible.Book.Verse;
+import io.github.schef.xmlbible.Library.Bible;
+import io.github.schef.xmlbible.Library.Book;
+import io.github.schef.xmlbible.Library.Chapter;
+import io.github.schef.xmlbible.Library.Verse;
 
 /**
  * Created by schef on 5/23/16.
@@ -29,12 +27,8 @@ public class XMLPullParserHandler {
     Bible bible;
 
     public XMLPullParserHandler() {
-        bible.init("dummy", new ArrayList<Book>());
+        bible = new Bible("dummy");
     }
-
-    //public List<Book> getEmployees() {
-    //    return employees;
-    //}
 
     public Bible parse(InputStream is) {
         XmlPullParserFactory factory = null;
@@ -53,7 +47,7 @@ public class XMLPullParserHandler {
                 switch (eventType) {
                     case XmlPullParser.START_TAG:
                         if (tagname.equalsIgnoreCase("bible")) {
-                            bibleString = parser.getAttributeValue(0);
+                            bibleString = parser.getAttributeValue(null, "name");
                             //employee = new Employee();
                             bible.setName(bibleString);
 
@@ -63,20 +57,18 @@ public class XMLPullParserHandler {
                             //employee.setBook(parser.getAttributeValue(0));
                             bookString = parser.getAttributeValue(0);
                             //employee = new Employee();
-                            book = new Book();
-                            book.init(bookString);
+                            book = new Book(bookString);
                             //System.out.println("start bk: " + book);
                         } else if (tagname.equalsIgnoreCase("chapter")) {
                             //employee.setChapter();
                             chapterInt = Integer.parseInt(parser.getAttributeValue(0));
-                            chapter = book.addChapter();
-                            chapter.init(chapterInt);
+                            chapter = book.addChapter(new Chapter(chapterInt));
 
                             //System.out.println("start ch: " + chapter);
                         } else if (tagname.equalsIgnoreCase("verse")) {
                             //employee.setDepartment(text);
                             verseInt = Integer.parseInt(parser.getAttributeValue(0));
-                            verse = chapter.addVerse();
+                            //verse = chapter.addVerse(0);
 
                             //System.out.println("start ve: " + verse);
                             text = "";
@@ -97,7 +89,7 @@ public class XMLPullParserHandler {
                             //System.out.println("end ch: " + chapter);
                         }
                         else if (tagname.equalsIgnoreCase("verse")) {
-                            verse.init(verseInt, text);
+                            chapter.addVerse(new Verse(verseInt, text));
                         }
                         break;
 

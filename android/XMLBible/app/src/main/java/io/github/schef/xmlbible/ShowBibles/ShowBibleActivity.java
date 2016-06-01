@@ -9,16 +9,20 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import io.github.schef.xmlbible.Book.Bible;
-import io.github.schef.xmlbible.Book.Library;
+import io.github.schef.xmlbible.Library.Bible;
+import io.github.schef.xmlbible.Library.Library;
 import io.github.schef.xmlbible.Fragments.LibraryFragment;
 import io.github.schef.xmlbible.Fragments.SmartFragmentStatePagerAdapter;
 import io.github.schef.xmlbible.R;
-import io.github.schef.xmlbible.XMLPullParserHandler;
 
 public class ShowBibleActivity extends AppCompatActivity {
 
     private SmartFragmentStatePagerAdapter adapterViewPager;
+    int bibleSelected = 0;
+
+    public int getBibleSelected() {
+        return bibleSelected;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +37,8 @@ public class ShowBibleActivity extends AppCompatActivity {
             XMLPullParserHandler parser = new XMLPullParserHandler();
             Bible Kjv = Library.getInstance().addBible(parser.parse(getAssets().open("kjv.xml")));
 
-            //parser = new XMLPullParserHandler();
+            parser = new XMLPullParserHandler();
             Bible Employees = Library.getInstance().addBible(parser.parse(getAssets().open("employees.xml")));
-            //Employees.init("Employees");
-            //Employees.setBooks(parser.parse(getAssets().open("employees.xml")));
 
             parser = null;
 
@@ -54,6 +56,7 @@ public class ShowBibleActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     //Toast.makeText(ShowBibleActivity.this, "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+                    bibleSelected = position;
                 }
 
                 // This method will be invoked when the current page is scrolled

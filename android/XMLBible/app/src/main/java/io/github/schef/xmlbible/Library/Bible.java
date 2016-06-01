@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible.Book;
+package io.github.schef.xmlbible.Library;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ public class Bible {
     String name;
     List<Book> books;
 
-    public void init(String name, ArrayList<Book> books){
+    public Bible(String name){
         this.name = name;
-        this.books = books;
-        //System.out.println("bible added");
+        this.books = new ArrayList<Book>();
+
     }
 
     public Book addBook(Book book){

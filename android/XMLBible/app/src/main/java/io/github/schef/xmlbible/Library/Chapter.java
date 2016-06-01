@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible.Book;
+package io.github.schef.xmlbible.Library;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +11,13 @@ public class Chapter {
     Integer num;
     List<Verse> verses;
 
-    public void init(Integer num){
+    public Chapter(Integer num){
         this.num = num;
         this.verses = new ArrayList<Verse>();
-        //System.out.println("chapter added");
     }
 
-    public Verse addVerse(){
-        Verse verse = new Verse();
+    public void addVerse(Verse verse){
         verses.add(verse);
-        return verse;
     }
 
     public List<Verse> getVerses() {

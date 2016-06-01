@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible.Book;
+package io.github.schef.xmlbible.Library;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,4 @@
-package io.github.schef.xmlbible.Book;
-
-import android.os.Parcelable;
+package io.github.schef.xmlbible.Library;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +11,15 @@ public class Book{
     String name;
     List<Chapter> chapters;
 
-    public void init(String name){
+    public Book(String name){
         this.name = name;
         this.chapters = new ArrayList<Chapter>();
-        //System.out.println("book added");
     }
 
-    public Chapter addChapter(){
-        Chapter chapter = new Chapter();
+    public Chapter addChapter(Chapter chapter){
+        Chapter myChapter = chapter;
         chapters.add(chapter);
-        return chapter;
+        return myChapter;
     }
 
     public String getName() {

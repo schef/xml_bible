@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible.ShowBibles;
+package io.github.schef.xmlbible.ShowBooks;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,19 +11,20 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.github.schef.xmlbible.Library.Book;
+import io.github.schef.xmlbible.Library.Chapter;
 import io.github.schef.xmlbible.R;
 
 /**
  * Created by schef on 5/24/16.
  */
 
-public class BibleAdapter extends ArrayAdapter<Book> {
+public class BookAdapter extends ArrayAdapter<Chapter> {
 
     Context context;
     int layoutResourceId;
-    List<Book> data = null;
+    List<Chapter> data = null;
 
-    public BibleAdapter(Context context, int layoutResourceId, List<Book> data) {
+    public BookAdapter(Context context, int layoutResourceId, List<Chapter> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -50,8 +51,8 @@ public class BibleAdapter extends ArrayAdapter<Book> {
             holder = (WeatherHolder)row.getTag();
         }
 
-        Book weather = data.get(position);
-        String str = weather.getName();
+        Chapter weather = data.get(position);
+        String str = weather.toString();
         if(str.length() > 40) {
             str = str.substring(0, 40);
         }
