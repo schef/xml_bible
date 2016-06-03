@@ -1,4 +1,4 @@
-package io.github.schef.xmlbible.ShowBooks;
+package io.github.schef.xmlbible.ShowChapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,29 +6,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import java.io.IOException;
-
 import io.github.schef.xmlbible.Fragments.BibleFragment;
-import io.github.schef.xmlbible.Fragments.LibraryFragment;
+import io.github.schef.xmlbible.Fragments.BookFragment;
 import io.github.schef.xmlbible.Fragments.SmartFragmentStatePagerAdapter;
-import io.github.schef.xmlbible.Library.Bible;
 import io.github.schef.xmlbible.Library.Library;
 import io.github.schef.xmlbible.R;
-import io.github.schef.xmlbible.ShowBibles.XMLPullParserHandler;
 
-public class ShowBooksActivity extends AppCompatActivity {
+public class ShowChapterActivity extends AppCompatActivity {
 
     private SmartFragmentStatePagerAdapter adapterViewPager;
     int selectedBible;
     int selectedBook;
+    int selectedChapter;
     int bible;
 
-    public int getBibleSelected() {
-        return selectedBible;
-    }
-
-    public int getBookSelected() {
-        return selectedBook;
+    public int getChapterSelected() {
+        return selectedChapter;
     }
 
     @Override
@@ -40,6 +33,7 @@ public class ShowBooksActivity extends AppCompatActivity {
 
         int selectedTabIndex = getIntent().getExtras().getInt("position");
         selectedBible = getIntent().getExtras().getInt("bible");
+        selectedBook = getIntent().getExtras().getInt("book");
         // Switch to page based on index
 
         vpPager.setClipToPadding(false);
@@ -62,7 +56,7 @@ public class ShowBooksActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 // Code goes here
-                selectedBook = position;
+                selectedChapter = position;
             }
 
             // Called when the scroll state changes:
@@ -79,7 +73,7 @@ public class ShowBooksActivity extends AppCompatActivity {
     // Extend from SmartFragmentStatePagerAdapter now instead for more dynamic ViewPager items
     public class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
         //private static int NUM_ITEMS = 6;
-        private int NUM_ITEMS = Library.getInstance().getBible(selectedBible).getSize();
+        private int NUM_ITEMS = Library.getInstance().getBible(selectedBible).getBook(selectedBook).getSize();
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -94,13 +88,13 @@ public class ShowBooksActivity extends AppCompatActivity {
         // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
-            return BibleFragment.newInstance(selectedBible, position);
+            return BookFragment.newInstance(selectedBible, selectedBook, position);
         }
 
         // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            return Library.getInstance().getBible(selectedBible).getBook(position).getName();
+            return Library.getInstance().getBible(selectedBible).getBook(selectedBook).getChapter(position).toString();
         }
 
         @Override

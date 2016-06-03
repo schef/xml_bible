@@ -1,6 +1,5 @@
 package io.github.schef.xmlbible.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -10,28 +9,26 @@ import android.widget.AdapterView;
 
 import io.github.schef.xmlbible.Library.Library;
 import io.github.schef.xmlbible.R;
-import io.github.schef.xmlbible.ShowBibles.BibleAdapter;
-import io.github.schef.xmlbible.ShowBooks.BookAdapter;
-import io.github.schef.xmlbible.ShowBooks.ShowBooksActivity;
-import io.github.schef.xmlbible.ShowChapters.ShowChapterActivity;
+import io.github.schef.xmlbible.ShowChapters.ChapterAdapter;
 
 /**
  * Created by schef on 5/24/16.
  */
 
-public class BibleFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class BookFragment extends ListFragment implements AdapterView.OnItemClickListener {
     // Store instance variables
-    private Integer pos;
-    private String name;
     private Integer bible = 0;
+    private Integer book = 0;
+    private Integer pos;
 
 
-    public static BibleFragment newInstance(int bible, int position) {
+    public static BookFragment newInstance(int bible, int book, int position) {
         
         Bundle args = new Bundle();
-        args.putInt("position", position);
         args.putInt("bible", bible);
-        BibleFragment fragment = new BibleFragment();
+        args.putInt("book", book);
+        args.putInt("position", position);
+        BookFragment fragment = new BookFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,8 +36,9 @@ public class BibleFragment extends ListFragment implements AdapterView.OnItemCli
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pos = getArguments().getInt("position", 0);
         bible = getArguments().getInt("bible", 0);
+        book = getArguments().getInt("book", 0);
+        pos = getArguments().getInt("position", 0);
     }
 
     @Override
@@ -52,9 +50,7 @@ public class BibleFragment extends ListFragment implements AdapterView.OnItemCli
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.Planets, android.R.layout.simple_list_item_1);
-        //ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.list_item, Bible.getInstance().getBook(pos).getChapters());
-        BookAdapter adapter = new BookAdapter(getActivity(), R.layout.list_item, Library.getInstance().getBible(bible).getBook(pos).getChapters());
+        ChapterAdapter adapter = new ChapterAdapter(getActivity(), R.layout.list_item, Library.getInstance().getBible(bible).getBook(book).getChapter(pos).getVerses());
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
@@ -62,11 +58,8 @@ public class BibleFragment extends ListFragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), ShowChapterActivity.class);
-        intent.putExtra("position", position);
-        intent.putExtra("bible", ((ShowBooksActivity)getActivity()).getBibleSelected());
-        intent.putExtra("book", ((ShowBooksActivity)getActivity()).getBookSelected());
-        startActivity(intent);
+        //Intent intent = new Intent(getActivity(), ShowBooksActivity.class);
+        //startActivity(intent);
     }
 
 

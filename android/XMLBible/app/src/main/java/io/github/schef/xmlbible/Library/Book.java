@@ -35,4 +35,12 @@ public class Book{
         //return super.toString();
         return this.name;
     }
+
+    public Chapter getChapter(int pos){
+        return chapters.get(pos);
+    }
+
+    public int getSize(){
+        return chapters.size();
+    }
 }

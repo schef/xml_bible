@@ -29,4 +29,8 @@ public class Chapter {
         //return super.toString();
         return String.valueOf(num);
     }
+
+    public Verse getVerse(int pos){
+        return verses.get(pos);
+    }
 }
