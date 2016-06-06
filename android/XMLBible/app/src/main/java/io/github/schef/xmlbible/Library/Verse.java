@@ -16,6 +16,6 @@ public class Verse {
     @Override
     public String toString() {
         //return super.toString();
-        return verse;
+        return num + " " + verse;
     }
 }
